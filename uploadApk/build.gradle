@@ -1,0 +1,104 @@
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation gradleApi()
+    implementation localGroovy()
+
+    implementation 'com.android.tools.build:gradle:3.4.2'
+// https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.14.9'
+    implementation 'net.dongliu:apk-parser:2.6.10'
+
+
+}
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier  = 'sources'
+}
+task javadocJar(type: Jar) {
+    from javadoc
+    archiveClassifier  = 'javadoc'
+}
+
+
+group='pro.youquan'
+version='0.1.2'
+
+
+publishing  {
+    publications {
+        mavenJava(MavenPublication) {
+            // 编译jar包
+            from components.java
+            artifactId='upload-apk'
+            artifact sourcesJar
+            artifact javadocJar
+            // 打包源码
+           // artifact sourcesJar
+            // javadoc
+           // artifact javadocJar
+            pom {
+                name = "uploadApk"
+                description = "Gradle 打包Android程序后自动上传蒲公英或者FIR"
+                url = "https://youquan.pro"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "fitz"
+                        name = "fitz"
+                        email = "78858627@qq.com"
+                    }
+                }
+                scm {
+                    connection = "scm:git:http://youquan.pro"
+                    developerConnection = "scm:git:https://youquan.pro"
+                    url = "https://youquan.pro"
+                }
+            }
+        }
+       /* mavenJava(MavenPublication) {
+            from components.java
+            // more goes in here
+        }*/
+    }
+    repositories  {
+     /*  mavenLocal()
+        // 发布Release版本可在版本号后面带上'-RELEASE'，也可不带
+        maven {
+            name 'Release'
+            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username = "${NEXUS_USERNAME}"
+                password = "${NEXUS_PASSWORD}"
+            }
+        }
+        // 发布Snapshot快照版本必须在版本号后面加上'-SNAPSHOT'
+        maven {
+            name = 'Snapshot'
+            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            credentials {
+                username = "4evercai"
+                password = "ovSSUOc80Gfb&"
+            }
+        }
+*/
+
+        maven {
+            url = "../repo"
+        }
+    }
+}
+
+signing {
+    //sign publishing.publications.mavenJava
+}

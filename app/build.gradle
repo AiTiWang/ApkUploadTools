@@ -1,0 +1,83 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+   // id 'pro.youquan.uploadApk'
+}
+
+android {
+    compileSdk 31
+
+    defaultConfig {
+        applicationId "com.example.gradleplugindemo"
+        minSdk 21
+        targetSdk 31
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    lintOptions {
+        checkDependencies true
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
+}
+task getGitCommitLogTask{
+    doLast {
+        getGitCommitLog();
+    }
+
+}
+def getGitCommitLog(){
+
+    ProcessBuilder processBuilder = new ProcessBuilder()
+    processBuilder.redirectErrorStream(true)
+    processBuilder.directory(new File("D:\\WorkSpace\\Android\\YesoulBle\\"))
+    //processBuilder.command("git" ,"git log -n 3 --pretty=format:\"%H %cd %s\"")
+    processBuilder.command("cmd","chcp" ,"65001")
+    // processBuilder.command("git" ,"log","-n 3","--pretty=format:%H %cd %s")
+
+    Process process = processBuilder.start()
+    println("process start")
+    InputStreamReader inputReader = new InputStreamReader(process.getInputStream(), "UTF-8")
+    BufferedReader bufferedReader = new BufferedReader(inputReader)
+    String line
+    while ((line = bufferedReader.readLine()) != null) {
+        println(line)
+    }
+    process.waitFor()
+    println("process finish")
+
+}
+/*uploadApkConfig {
+    enablePgyer=true
+    pgyApiKey = "2c209989dba7b3f71afea5ae40212cef"
+    pgyApiUrl = "https://www.xcxwo.com/apiv2/app/upload"
+    //firApiKey = "8cd97fa400bde134c60e07e3874779f2"
+}*/
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}

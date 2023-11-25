@@ -1,0 +1,37 @@
+pluginManagement {
+    repositories {
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+        }
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        mavenLocal()
+    }
+}
+dependencyResolutionManagement {
+    //repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/public"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/google"
+        }
+        google()
+        mavenCentral()
+    }
+}
+rootProject.name = "GradlePluginDemo"
+include ':app'
+include ':uploadApk'
