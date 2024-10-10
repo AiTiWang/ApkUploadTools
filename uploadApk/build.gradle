@@ -1,7 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
@@ -26,7 +25,7 @@ task javadocJar(type: Jar) {
 }
 
 
-group='pro.youquan'
+group='com.github.aitiwang'
 version='0.1.2'
 
 
@@ -35,7 +34,7 @@ publishing  {
         mavenJava(MavenPublication) {
             // 编译jar包
             from components.java
-            artifactId='upload-apk'
+            artifactId='apkupload'
             artifact sourcesJar
             artifact javadocJar
             // 打包源码
@@ -43,9 +42,9 @@ publishing  {
             // javadoc
            // artifact javadocJar
             pom {
-                name = "uploadApk"
+                name = "apkupload"
                 description = "Gradle 打包Android程序后自动上传蒲公英或者FIR"
-                url = "https://youquan.pro"
+                url = "https://github.com/AiTiWang"
                 licenses {
                     license {
                         name = "The Apache License, Version 2.0"
@@ -60,9 +59,9 @@ publishing  {
                     }
                 }
                 scm {
-                    connection = "scm:git:http://youquan.pro"
-                    developerConnection = "scm:git:https://youquan.pro"
-                    url = "https://youquan.pro"
+                    connection = "scm:git:http://github.com/AiTiWang"
+                    developerConnection = "scm:git:https://github.com/AiTiWang"
+                    url = "https://github.com/AiTiWang"
                 }
             }
         }
@@ -72,27 +71,8 @@ publishing  {
         }*/
     }
     repositories  {
-     /*  mavenLocal()
-        // 发布Release版本可在版本号后面带上'-RELEASE'，也可不带
-        maven {
-            name 'Release'
-            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
-            credentials {
-                username = "${NEXUS_USERNAME}"
-                password = "${NEXUS_PASSWORD}"
-            }
-        }
-        // 发布Snapshot快照版本必须在版本号后面加上'-SNAPSHOT'
-        maven {
-            name = 'Snapshot'
-            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            credentials {
-                username = "4evercai"
-                password = "ovSSUOc80Gfb&"
-            }
-        }
-*/
 
+        mavenLocal()
         maven {
             url = "../repo"
         }

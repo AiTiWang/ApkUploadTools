@@ -1,4 +1,4 @@
-package pro.youquan.gradle.apk.upload
+package com.github.aitiwang.apkupload
 
 import com.android.build.gradle.api.BaseVariant
 import com.android.build.gradle.api.BaseVariantOutput
@@ -127,7 +127,7 @@ public class UploadApkTask extends DefaultTask {
             String content = "{\"type\":\"android\", \"bundle_id\":\"${bundleId}\", \"api_token\":\"${apikey}\"}"
             RequestBody firRequestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8")
                     , content);
-            String  url = uploadApkConfig.pgyApiUrl;
+            String  url = uploadApkConfig.firApiUrl;
             if (!StringUtils.isNotEmpty(url)){
                 url = "http://api.bq04.com/apps";
             }

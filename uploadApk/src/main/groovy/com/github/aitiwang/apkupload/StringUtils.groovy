@@ -1,4 +1,4 @@
-package pro.youquan.gradle.apk.upload;
+package com.github.aitiwang.apkupload;
 
 public class StringUtils {
     public static boolean isNotEmpty(String str) {
