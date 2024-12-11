@@ -50,8 +50,9 @@ public class UploadApkTask extends DefaultTask {
                 mProject.logger.error("apk file is not exist")
                 return
             } else {
-
-                boolean  isNeedToUpload = uploadApkConfig.isNeedToUpload();
+                if (StringUtils.isNotEmpty(uploadApkConfig.buildUpdateDescription)){
+                    changeLog =  uploadApkConfig.buildUpdateDescription
+                }
                 if (uploadApkConfig.isNeedToUpload()){
                     String pgyApiKey = uploadApkConfig.pgyApiKey
                     String firApiKey = uploadApkConfig.firApiKey

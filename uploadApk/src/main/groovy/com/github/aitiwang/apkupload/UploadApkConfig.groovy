@@ -8,6 +8,7 @@ class UploadApkConfig {
     public String pgyApiUrl;
     public String firApiKey;
     public String firApiUrl;
+    public String buildUpdateDescription;
     public boolean enableGitCommitLog = false;
     public boolean enablePgyer = false;
     public boolean enableFir = false;
