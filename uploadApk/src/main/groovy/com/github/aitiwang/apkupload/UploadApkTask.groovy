@@ -43,9 +43,9 @@ public class UploadApkTask extends DefaultTask {
         println("*************** upload start ***************")
         UploadApkConfig uploadApkConfig = UploadApkConfig.getConfig(mProject)
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-               .connectTimeout(Math.max(uploadApkConfig.okHttpConnectTimeout,5_000L))
-               .readTimeout(Math.max(uploadApkConfig.okHttpReadTimeout,10_000L))
-               .writeTimeout(Math.max(uploadApkConfig.okHttpWriteTimeout,10_000L))
+               .connectTimeout(Math.max(uploadApkConfig.okHttpConnectTimeout,5_000L),TimeUnit.MILLISECONDS)
+               .readTimeout(Math.max(uploadApkConfig.okHttpReadTimeout,10_000L),TimeUnit.MILLISECONDS)
+               .writeTimeout(Math.max(uploadApkConfig.okHttpWriteTimeout,10_000L),TimeUnit.MILLISECONDS)
                 .build()
         String changeLog = "";
         for (BaseVariantOutput output : mVariant.getOutputs()) {
