@@ -13,6 +13,9 @@ class UploadApkConfig {
     public boolean enablePgyer = false;
     public boolean enableFir = false;
 
+    public long okHttpConnectTimeout = 20_000L;
+    public long okHttpReadTimeout = 120_000L;
+    public long okHttpWriteTimeout = 120_000L;
     public UploadApkConfig() {
     }
 

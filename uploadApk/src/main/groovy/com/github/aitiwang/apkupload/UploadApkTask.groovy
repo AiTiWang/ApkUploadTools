@@ -23,6 +23,7 @@ import org.gradle.api.tasks.TaskAction
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.concurrent.TimeUnit
 
 public class UploadApkTask extends DefaultTask {
     private Project mProject;
@@ -41,7 +42,11 @@ public class UploadApkTask extends DefaultTask {
     public void uploadFile() {
         println("*************** upload start ***************")
         UploadApkConfig uploadApkConfig = UploadApkConfig.getConfig(mProject)
-        OkHttpClient okHttpClient = new OkHttpClient.Builder().build()
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+               .connectTimeout(Math.max(uploadApkConfig.okHttpConnectTimeout,5_000L))
+               .readTimeout(Math.max(uploadApkConfig.okHttpReadTimeout,10_000L))
+               .writeTimeout(Math.max(uploadApkConfig.okHttpWriteTimeout,10_000L))
+                .build()
         String changeLog = "";
         for (BaseVariantOutput output : mVariant.getOutputs()) {
             File file = output.getOutputFile()
